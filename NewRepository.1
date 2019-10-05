@@ -1,0 +1,37 @@
+.Dt nere 1      
+.Os Darwin 
+.Sh NAME                 
+.Nm nere
+.Nd new repository
+.Sh SYNOPSIS
+.Nm
+.Op Fl h Ar help 
+.Op Fl u Ar username
+.Op Fl t Ar Token(private)
+.Op Fl r Ar reponame 
+.Op Fl d Ar description
+.Op Fl p Ar private
+.Sh DESCRIPTION
+the
+.Nm
+utility creates a repository on the github user
+.Ar (https://github.com)
+and remote connect to it via the terminal instantly
+.Pp
+
+A list of options as follows:
+.Bl -tag -width -indent
+.It Fl h    
+will print the help document for the command
+.It Fl u 
+takes username input from the user 
+.It Fl t 
+token(private) from github
+.It Fl r
+takes and creates the input from the user
+.It Fl d
+takes and create the description for the repository
+.It Fl p
+makes the repository private
+.El                      
+.Pp
