@@ -25,7 +25,10 @@ while [ "$1" != "" ]; do
         -d | --description )    shift
                                 description=$1
                                 ;;
-        -t | --Token )          shift   
+        --password  )           shift   
+                                pat=$1
+                                ;;
+        -o | --oauth   )        shift
                                 pat=$1
                                 ;;
         -p | --private )        shift
