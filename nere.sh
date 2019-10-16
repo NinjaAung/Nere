@@ -30,6 +30,7 @@ while [ "$1" != "" ]; do
                                 ;;
         -p | --private )        shift
                                 private=true
+                                ;;
     esac
     shift
 done
@@ -48,4 +49,4 @@ if [ -z $reponame ]; then
     read -p "[Reponame]: " reponame 
 fi
 
-curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"private\":\"$private\"}"
+curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"private\":$private}"
