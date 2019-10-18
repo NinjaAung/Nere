@@ -77,3 +77,19 @@ while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* 
 # Remove echo for public push v1.0
 echo curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}"
 
+# add and remove ! for testing purpose
+if  [ -x "$(command -v git)" ]; then
+    echo "${green}Sucess: Online Repository made to: $username"
+    echo "${red}Error: Git is not installed; will not create a folder"
+    exit 1
+else
+    ####    Git Intialization Repository    ####
+    mkdir "$reponame"
+    cd ./$reponame
+    git init
+    touch README.md
+    echo "# $Reponame" > README.md
+    git add .
+    git remote add origin git@github.com:$username/$reponame.git
+    git push -u origin master
+fi
