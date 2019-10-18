@@ -11,7 +11,7 @@ pat=                # Personal Access Token or Password may move to globale
 
 
 # Color List
-NC='\x1B[37m' # Return Default
+NC='\x1B[1;37m' # Return Default
 RED='\x1b[38;5;9m' # Error
 BLUE='\x1b[0;34m' # feeling blue
 GREEN='\x1B[32m' # Success
