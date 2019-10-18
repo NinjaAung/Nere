@@ -2,7 +2,8 @@
 
 
 description=null    # Optional Description flag 
-private=false       # Private defaulted to false  
+private=false       # Private defaulted to false
+delete=false        # Delete defaulted to false 
 LC_CTYPE=C          # Used for input
 username=           # Void Username may move to global
 reponame=           # Void reponame
@@ -10,14 +11,15 @@ pat=                # Personal Access Token or Password may move to globale
 
 
 # Color List
-RED='\x1b[38;5;9m' # Error
-GREEN='\x1B[32m' # Success
 NC='\x1B[37m' # Return Default
+RED='\x1b[38;5;9m' # Error
+BLUE='\x1b[0;34m' # feeling blue
+GREEN='\x1B[32m' # Success
 
 function cleanUp()
 {
     echo "\n${RED}Error: Script Canceled"
-    exit 2
+    exit 0
 }
 
 function usage() # Help and Usage case for the shell
@@ -25,6 +27,23 @@ function usage() # Help and Usage case for the shell
     echo "usage: nere [-h help] [-u username ]  ${RED}[${NC} [-p password] or [-a auth] ${RED}]${NC}  [-r reponame] [-d description] "
     exit 0
 }
+
+function main() 
+{
+    if $delete; then
+        read -p $'Are you very very sure: y/n ' sure
+        if [ "$sure" = "y" ]; then
+            echo "${BLUE}You're code will miss you ;^;${NC}"
+            curl -s -u $username -X "DELETE" https://api.github.com/repos/$username/$reponame
+        else
+            echo "Process Canceled"
+            exit 0
+        fi
+    else 
+        curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
+    fi
+}
+
 
 
 trap cleanUp 2 # Aborts Program
@@ -41,8 +60,12 @@ while [ "$1" != "" ]; do
         -r | --reponame )       shift
                                 reponame=$1
                                 ;;
-        -d | --description )    shift
+        --description )         shift
                                 description=\"$1\"
+                                ;;
+        --delete )              shift
+                                delete=true
+                                continue
                                 ;;
         -a | --auth )           shift
                                 pat=$1
@@ -54,6 +77,9 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
+
+
+
 
 
 # if $pat has been assigned
@@ -74,13 +100,13 @@ while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* 
     done
 
 
-# Remove echo for public push v1.0
-echo curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}"
+main
 
-# add and remove ! for testing purpose
+
+# remove ! for testing purpose
 if  [ -x "$(command -v git)" ]; then
-    echo "${green}Sucess: Online Repository made to: $username"
-    echo "${red}Error: Git is not installed; will not create a folder"
+    echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
+    echo "${RED}Error: Git is not installed; will not create a folder"
     exit 1
 else
     ####    Git Intialization Repository    ####
