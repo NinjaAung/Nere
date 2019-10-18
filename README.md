@@ -23,7 +23,7 @@ the nere utility creates a repository on the github user (https://github.com) an
 
 ## Key Feature
 ### Creating Repositories From terminal
-![create](img/create.png)
+![create](img/current.png)
 ### Deleting Repositories
 ![delete](img/delete.png)
 
