@@ -45,20 +45,23 @@ function main()
         curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
         
         # remove ! for testing purpose
-        if  [ -x "$(command -v git)" ]; then
+        if  ! [ -x "$(command -v git)" ]; then
             echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
             echo "${RED}Error: Git is not installed; will not create a folder"
             exit 1
         else
             ####    Git Intialization Repository    ####
             mkdir "$reponame"
-            cd ./$reponame
-            git init
+            cd $reponame/
             touch README.md
             echo "# $Reponame" > README.md
+            echo "${GREEN}Starting Git Intialization${NC}"
+            git init
             git add .
+            git commit -m "Intialize Repository"
             git remote add origin git@github.com:$username/$reponame.git
             git push -u origin master
+            echo "${GREEN}Success: Finished and Connected To Repository"
         fi
     fi
 }
