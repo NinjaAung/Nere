@@ -1,7 +1,9 @@
 #!/bin/sh
 
-private=false            # Private defaulted to false
-description=null   # Optional Description flag    
+
+description=null    # Optional Description flag 
+private=false       # Private defaulted to false  
+LC_CTYPE=C          # Used for input
 username=           # Void Username may move to global
 reponame=           # Void reponame
 pat=                # Personal Access Token or Password may move to globale
@@ -20,7 +22,8 @@ function cleanUp()
 
 function usage() # Help and Usage case for the shell
 {
-    echo "usage: nere [-h help] [-u username ]  [ [-p password] or [-a auth] ]  [-r reponame] [-d description] "
+    echo "usage: nere [-h help] [-u username ]  ${RED}[${NC} [-p password] or [-a auth] ${RED}]${NC}  [-r reponame] [-d description] "
+    exit 0
 }
 
 
@@ -47,7 +50,7 @@ while [ "$1" != "" ]; do
         -p | --private )        shift
                                 private=true
                                 continue
-                                shift
+                                ;;
     esac
     shift
 done
@@ -60,17 +63,17 @@ fi
 
 
 # Checks if $username has been assign a string yet
-if [ -z $username ]; then 
+while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
         read -p "[Username]: " username
-fi
+    done
 
 
 # Checks if $reponame has been assign a string yet
-if [ -z $reponame ]; then 
-    read -p "[Reponame]: " reponame 
-fi
+while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* ]]; do
+        read -p "[Reponame]: " reponame 
+    done
 
 
 # Remove echo for public push v1.0
-curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}"
+echo curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}"
 
