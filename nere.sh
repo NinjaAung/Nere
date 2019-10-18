@@ -1,10 +1,10 @@
 #!/bin/sh
 
-private=        # Private defaulted to false
-description=    # Optional Description flag    
-username=       # Void Username may move to global
-reponame=       # Void reponame
-pat=            # Personal Access Token or Password may move to globale
+private=false            # Private defaulted to false
+description=null   # Optional Description flag    
+username=           # Void Username may move to global
+reponame=           # Void reponame
+pat=                # Personal Access Token or Password may move to globale
 
 
 # Color List
@@ -39,9 +39,9 @@ while [ "$1" != "" ]; do
                                 reponame=$1
                                 ;;
         -d | --description )    shift
-                                description=$1
+                                description=\"$1\"
                                 ;;
-        -a | - | --auth )           shift
+        -a | --auth )           shift
                                 pat=$1
                                 ;;
         -p | --private )        shift
@@ -56,7 +56,6 @@ done
 # if $pat has been assigned
 if ! [ -z $pat ]; then
     username="$username:$pat"
-    echo $username
 fi
 
 
@@ -73,4 +72,5 @@ fi
 
 
 # Remove echo for public push v1.0
-echo curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"private\":$private}"
+curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}"
+
