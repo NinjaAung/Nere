@@ -34,13 +34,32 @@ function main()
         read -p $'Are you very very sure: y/n ' sure
         if [ "$sure" = "y" ]; then
             echo "${BLUE}You're code will miss you ;^;${NC}"
-            curl -s -u $username -X "DELETE" https://api.github.com/repos/$username/$reponame
+            # need to add a grep for bad credentials as well
+            curl -s -u $username -X "DELETE" https://api.github.com/repos/$username/$reponame | grep --s "Not Found" && echo "${RED}Error: The repository: $reponame dosen't exsist" && echo "Check for any misspellings${NC}" && exit 0
+            echo "${GREEN}Success:${RED} $reponame${NC} has been deleted from $username"
         else
             echo "Process Canceled"
             exit 0
         fi
     else 
         curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
+        
+        # remove ! for testing purpose
+        if  [ -x "$(command -v git)" ]; then
+            echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
+            echo "${RED}Error: Git is not installed; will not create a folder"
+            exit 1
+        else
+            ####    Git Intialization Repository    ####
+            mkdir "$reponame"
+            cd ./$reponame
+            git init
+            touch README.md
+            echo "# $Reponame" > README.md
+            git add .
+            git remote add origin git@github.com:$username/$reponame.git
+            git push -u origin master
+        fi
     fi
 }
 
@@ -101,21 +120,3 @@ while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* 
 
 
 main
-
-
-# remove ! for testing purpose
-if  [ -x "$(command -v git)" ]; then
-    echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
-    echo "${RED}Error: Git is not installed; will not create a folder"
-    exit 1
-else
-    ####    Git Intialization Repository    ####
-    mkdir "$reponame"
-    cd ./$reponame
-    git init
-    touch README.md
-    echo "# $Reponame" > README.md
-    git add .
-    git remote add origin git@github.com:$username/$reponame.git
-    git push -u origin master
-fi
