@@ -12,12 +12,20 @@ RED='\x1b[38;5;9m' # Error
 GREEN='\x1B[32m' # Success
 NC='\x1B[37m' # Return Default
 
-
-
-usage() # Help and Usage case for the shell
+function cleanUp()
 {
-    echo "usage: nere [-h help] [-u username ]  [ [-p password] or [-o oauth] ]  [-r reponame] [-d description] "
+    echo "\n${RED}Error: Script Canceled"
+    exit 2
 }
+
+function usage() # Help and Usage case for the shell
+{
+    echo "usage: nere [-h help] [-u username ]  [ [-p password] or [-a auth] ]  [-r reponame] [-d description] "
+}
+
+
+trap cleanUp 2 # Aborts Program
+
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -33,7 +41,7 @@ while [ "$1" != "" ]; do
         -d | --description )    shift
                                 description=$1
                                 ;;
-        -a | --auth )           shift
+        -a | - | --auth )           shift
                                 pat=$1
                                 ;;
         -p | --private )        shift
@@ -45,7 +53,7 @@ while [ "$1" != "" ]; do
 done
 
 
-# if pat 
+# if $pat has been assigned
 if ! [ -z $pat ]; then
     username="$username:$pat"
     echo $username
