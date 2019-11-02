@@ -37,7 +37,7 @@ the nere utility creates a repository on the github user (https://github.com) an
     ```
     ~ chmod 755 nere.sh
     ```
-2. Excute with parameter
+2. Execute with parameter
     ```
     ~ ./nere.sh help
     ```
