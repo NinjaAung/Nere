@@ -7,11 +7,11 @@ delete=false        # Delete defaulted to false
 LC_CTYPE=C          # Used for input
 username=           # Void Username may move to global
 reponame=           # Void reponame
-pat=                # Personal Access Token or Password may move to globale
+pat=                # Personal Access Token or Password may move to globle
 
 
 # Color List
-NC='\x1B[1;37m' # Return Default
+NC='\x1B[37m' # Return Default
 RED='\x1b[38;5;9m' # Error
 BLUE='\x1b[0;34m' # feeling blue
 GREEN='\x1B[32m' # Success
@@ -79,7 +79,7 @@ while [ "$1" != "" ]; do
         -u | --username )       shift
                                 username=$1
                                 ;;
-        -r | --reponame )       shift
+        -r | --reponame | --create )       shift
                                 reponame=$1
                                 ;;
         --description )         shift
@@ -87,6 +87,7 @@ while [ "$1" != "" ]; do
                                 ;;
         --delete )              shift
                                 delete=true
+                                reponame=$1
                                 continue
                                 ;;
         -a | --auth )           shift
