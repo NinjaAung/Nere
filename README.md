@@ -16,7 +16,6 @@
 
 > Command line tool use to update, create and delete repositories
 
-### 🏠 [Homepage](https://github.com/NinjaAung/nere#readme)
 
 ## Install
 
