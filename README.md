@@ -1,10 +1,13 @@
-<h1 align="center">Welcome to nere 👋</h1>
+<h1 align="center">Nere - New Repository</h1>
 <p>
-  <a href="https://www.npmjs.com/package/nere" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/nere.svg">
+  <a href="https://github.com/NinjaAung/nere#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="https://opensource.org/licenses/MIT" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  <a href="https://github.com/NinjaAung/nere/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/NinjaAung/nere/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/NinjaAung/nere" />
   </a>
   <a href="https://twitter.com/Ninjer27" target="_blank">
     <img alt="Twitter: Ninjer27" src="https://img.shields.io/twitter/follow/Ninjer27.svg?style=social" />
@@ -13,6 +16,8 @@
 
 > Command line tool use to update, create and delete repositories
 
+### 🏠 [Homepage](https://github.com/NinjaAung/nere#readme)
+
 ## Install
 
 ```sh
@@ -20,7 +25,7 @@ brew tap ninjaaung/nere
 brew install nere
 ```
 
-## Usage
+## Usage 
 
 ```sh
 nere [-h help] [-u username] [-p personalToken] [-r reponame] [-d description]
@@ -32,7 +37,11 @@ nere [-h help] [-u username] [-p personalToken] [-r reponame] [-d description]
 
 * Twitter: [@Ninjer27](https://twitter.com/Ninjer27)
 * Github: [@NinjaAung](https://github.com/NinjaAung)
-* LinkedIn: [@ninjaaung](https://linkedin.com/in/ninjaaung)
+* LinkedIn: [@NinjaAung](https://linkedin.com/in/NinjaAung)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/NinjaAung/nere/issues). You can also take a look at the [contributing guide](https://github.com/NinjaAung/nere/blob/master/CONTRIBUTING.md).
 
 ## Show your support
 
@@ -41,4 +50,4 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2020 [Nyein Chan Aung](https://github.com/NinjaAung).<br />
-This project is [MIT](https://opensource.org/licenses/MIT) licensed.
+This project is [MIT](https://github.com/NinjaAung/nere/blob/master/LICENSE) licensed.
