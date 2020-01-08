@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to nere 👋</h1>
+<h1 align="center">Nere - New Repository</h1>
 <p>
   <a href="https://www.npmjs.com/package/nere" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/nere.svg">
