@@ -29,6 +29,12 @@ brew install nere
 ```sh
 nere [-h help] [-u username] [-p personalToken] [-r reponame] [-d description]
 ```
+## Key Features
+### Creating
+![create](img/current.png)
+### Deleting
+![delete](img/delete.png)
+
 
 ## Author
 
