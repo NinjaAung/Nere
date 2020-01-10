@@ -31,7 +31,7 @@ function usage() # Help and Usage case for the shell
 
 function show_repo()
 {
-    curl -s -u $username https://api.github.com/users/$username/repos | grep -o 'full_name.*' | cut -b $((${#username}+15))- 
+    curl -s -u $username https://api.github.com/users/$username/repos | grep "full_name" | cut -d'"' -f 4 | cut -b $((${#username}+2))- 
     exit 0
 }
 
