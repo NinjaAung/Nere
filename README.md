@@ -31,9 +31,9 @@ nere [-h help] [-u username] [-p personalToken] [-r reponame] [-d description]
 ```
 ## Key Features
 ### Creating
-![create](img/current.png)
+![create](img/CreatingNEre.gif)
 ### Deleting
-![delete](img/delete.png)
+![delete](img/deletingnere.gif)
 
 
 ## Author
