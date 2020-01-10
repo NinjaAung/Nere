@@ -1,0 +1,152 @@
+#! /usr/bin/env sh
+
+description=null    # Optional Description flag 
+private=false       # Private defaulted to false
+delete=false        # Delete defaulted to false 
+folder=true
+LC_CTYPE=C          # Used for input
+full_length=
+username=           # Void Username may move to global
+reponame=           # Void reponame
+show=               # option to show other users
+pat=                # Personal Access Token or Password may move to globle
+
+# Color List
+NC='\x1b[0m' # Return Default
+RED='\x1b[38;5;9m' # Error
+BLUE='\x1b[0;34m' # feeling blue
+GREEN='\x1B[32m' # Success
+
+function cleanUp()
+{
+    echo "\n${RED}Error: Script Canceled"
+    exit 0
+}
+
+function usage() # Help and Usage case for the shell
+{
+    echo "usage: nere [-h help] [-u username ]  ${RED}[${NC} [-p password] or [-a auth] ${RED}]${NC}  [-r reponame] [-d description] "
+    exit 0
+}
+
+function show_repo()
+{
+    curl -s -u $username https://api.github.com/users/$username/repos | grep -o 'full_name.*' | cut -b $((${#username}+15))- 
+    exit 0
+}
+
+
+
+function main() 
+{
+    if $delete; then
+        read -p $'Are you very very sure: y/n ' sure
+        if [ "$sure" = "y" ]; then
+            echo "${BLUE}You're code will miss you ;^;${NC}"
+            curl -s -u $username -X "DELETE" https://api.github.com/repos/$username/$reponame | grep -Ei "Not Found|Bad credentials" && exit 0
+            echo "${GREEN}Success:${RED} $reponame${NC} has been deleted from $username"
+        else
+            echo "Process Canceled"
+            exit 0
+        fi        
+    else 
+        curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
+        
+        # remove ! for testing purpose
+        if  ! [ -x "$(command -v git)" ]; then
+            echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
+            echo "${RED}Error: Git is not installed; will not create a folder"
+            exit 1
+        else
+            if $folder; then
+            ####    Git Intialization Repository    ####
+            mkdir "$reponame"
+            cd $reponame/
+            touch README.md
+            echo "# ${reponame}" > README.md
+            echo "${GREEN}Starting Git Intialization${NC}"
+            git init
+            git add .
+            git commit -m "Intialize Repository"
+            git remote add origin git@github.com:$username/$reponame.git
+            git push -u origin master
+            echo "${GREEN}Success: Finished and Connected To Repository"
+            read -p "Open 'https://github.com/${username}/${reponame}' ?(ynq)   " sure
+            if [ "$sure" = "y" ]; then
+                open https://github.com/$username/$reponame
+            fi
+            else
+                echo "${GREEN}Success: Reposiotry Created"
+                read -p "Open 'https://github.com/${username}/${reponame}' ?(ynq)   " sure
+                if [ "$sure" = "y" ]; then
+                    open https://github.com/$username/$reponame
+                fi
+            fi
+        fi
+    fi
+}
+
+
+
+trap cleanUp 2 # Aborts Program
+
+
+while [ "$1" != "" ]; do
+    case $1 in
+        help )                  shift
+                                usage
+                                ;;
+        --list )                shift
+                                show_repo
+                                ;;
+        -u | --username )       shift
+                                username=$1
+                                ;;
+        -c | --create )         shift
+                                reponame=$1
+                                ;;
+        --desc )                shift
+                                description=\"$1\"
+                                ;;
+        -d |--delete )          shift
+                                delete=true
+                                reponame=$1
+                                continue
+                                ;;
+        -a | --auth )           shift
+                                pat=$1
+                                ;;
+        -p | --private )        shift
+                                private=true
+                                continue
+                                ;;
+        --no-folder )           shift
+                                folder=false
+                                continue
+                                ;;
+    esac
+    shift
+done
+
+
+
+
+
+# if $pat has been assigned
+if ! [ -z $pat ]; then
+    username="$username:$pat"
+fi
+
+# Checks if $username has been assign a string yet
+while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
+        read -p "[Username]: " username
+    done
+
+
+# Checks if $reponame has been assign a string yet
+while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* ]]; do
+        read -p "[Reponame]: " reponame 
+    done
+
+
+main
