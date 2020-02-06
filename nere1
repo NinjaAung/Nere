@@ -51,7 +51,7 @@ function main()
         fi        
     else 
         curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
-        
+        echo "$username:$pat"
         # remove ! for testing purpose
         if  ! [ -x "$(command -v git)" ]; then
             echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
@@ -129,19 +129,10 @@ while [ "$1" != "" ]; do
 done
 
 
-
-
-
-# if $pat has been assigned
-if ! [ -z $pat ]; then
-    username="$username:$pat"
-fi
-
 # Checks if $username has been assign a string yet
 while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
         read -p "[Username]: " username
     done
-
 
 # Checks if $reponame has been assign a string yet
 while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* ]]; do
