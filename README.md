@@ -16,6 +16,11 @@
 
 > Command line tool use to update, create and delete repositories
 
+## Pre-req
+Before installing please use use [Github OAuth Tokens](https://github.com/settings/tokens). Enable **Repo** and  **delete_repo** scopes
+
+![repo](img/repo)
+![delete_repo](delete_repo)
 
 ## Install
 
