@@ -19,8 +19,8 @@
 ## Pre-req
 Before installing please use use [Github OAuth Tokens](https://github.com/settings/tokens). Enable **Repo** and  **delete_repo** scopes
 
-![repo](img/repo)
-![delete_repo](delete_repo)
+![repo](img/repo.png)
+![delete_repo](delete_repo.png)
 
 ## Install
 
