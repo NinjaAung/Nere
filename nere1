@@ -5,7 +5,7 @@ private=false       # Private defaulted to false
 delete=false        # Delete defaulted to false 
 folder=true
 LC_CTYPE=C          # Used for input
-full_length=
+access_token=
 username=           # Void Username may move to global
 reponame=           # Void reponame
 show=               # option to show other users
@@ -16,6 +16,7 @@ NC='\x1b[0m' # Return Default
 RED='\x1b[38;5;9m' # Error
 BLUE='\x1b[0;34m' # feeling blue
 GREEN='\x1B[32m' # Success
+
 
 function cleanUp()
 {
@@ -31,7 +32,7 @@ function usage() # Help and Usage case for the shell
 
 function show_repo()
 {
-    curl -s -u $username https://api.github.com/users/$username/repos | grep "full_name" | cut -d'"' -f 4 | cut -b $((${#username}+2))- 
+    curl -s https://api.github.com/users/$username/repos | grep "full_name" | cut -d'"' -f 4 | cut -b $((${#username}+2))- 
     exit 0
 }
 
@@ -50,7 +51,7 @@ function main()
             exit 0
         fi        
     else 
-        curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
+        curl -s -H "Authorization: token $access_token" https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
         echo "$username:$pat"
         # remove ! for testing purpose
         if  ! [ -x "$(command -v git)" ]; then
@@ -93,7 +94,7 @@ trap cleanUp 2 # Aborts Program
 
 while [ "$1" != "" ]; do
     case $1 in
-        help )                  shift
+        --help | -h )           shift
                                 usage
                                 ;;
         --list )                shift
@@ -132,6 +133,11 @@ done
 # Checks if $username has been assign a string yet
 while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
         read -p "[Username]: " username
+    done
+
+# Checks if $access_token has been assign a string yet
+while [ -z $access_token ] || [ "$access_token" = "" ] || [[ $access_token = *[![:ascii:]]* ]]; do
+        read -p "[Reponame]: " access_token 
     done
 
 # Checks if $reponame has been assign a string yet
