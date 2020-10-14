@@ -43,14 +43,14 @@ function main()
         read -p $'Are you very very sure: y/n ' sure
         if [ "$sure" = "y" ]; then
             echo "${BLUE}You're code will miss you ;^;${NC}"
-            curl -s -u $username -X "DELETE" https://api.github.com/repos/$username/$reponame | grep -Ei "Not Found|Bad credentials" && exit 0
+            curl -s -u $username:$pat -X "DELETE" https://api.github.com/repos/$username/$reponame | grep -Ei "Not Found|Bad credentials" && exit 0
             echo "${GREEN}Success:${RED} $reponame${NC} has been deleted from $username"
         else
             echo "Process Canceled"
             exit 0
         fi        
     else 
-        curl -s -u $username https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
+        curl -s -u $username:$pat https://api.github.com/user/repos -d "{\"name\":\"$reponame\", \"description\":$description, \"private\":$private}" | grep --s "Bad credentials" && echo "${RED}Error: Bad Credentials${NC}" && exit 0
         # remove ! for testing purpose
         if  ! [ -x "$(command -v git)" ]; then
             echo "${GREEN}Sucess: Online Repository made to: ${NC}$username"
@@ -126,10 +126,6 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
-
-if ! [ -z $pat ]; then
-    username="$username:$pat"
-fi
 
 # Checks if variables have been assigned a value
 while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
