@@ -107,7 +107,7 @@ while [ "$1" != "" ]; do
         --desc )                shift
                                 description=\"$1\"
                                 ;;
-        -d |--delete )          shift
+        -d | --delete )         shift
                                 delete=true
                                 reponame=$1
                                 continue
@@ -130,6 +130,10 @@ done
 # Checks if variables have been assigned a value
 while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
         read -p "[Username]: " username
+    doneß
+
+while [ -z $pat] || [ "$pat" = "" ] || [[ $pat = *[![:ascii:]]* ]]; do
+        read -p "[Personal Access Token]: " pat
     done
 
 while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* ]]; do
