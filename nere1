@@ -25,7 +25,7 @@ function cleanUp()
 
 function usage()
 {
-    echo "usage: nere [-h help] [-u username ]  ${RED}[${NC} [-p password] or [-a auth] ${RED}]${NC}  [-r reponame] [-d description] "
+    echo "usage: nere [-u username ] [-t --token] [-r reponame] [--desc description] [-p private]"
     exit 0
 }
 
@@ -95,29 +95,29 @@ while [ "$1" != "" ]; do
         help )                  shift
                                 usage
                                 ;;
-        --list )                shift
+        list )                  shift
                                 show_repo
                                 ;;
-        -u | --username )       shift
-                                username=$1
+        private )               shift
+                                private=true
+                                continue
                                 ;;
-        -c | --create )         shift
-                                reponame=$1
-                                ;;
-        --desc )                shift
-                                description=\"$1\"
-                                ;;
-        -d | --delete )         shift
+        delete )                shift
                                 delete=true
                                 reponame=$1
                                 continue
                                 ;;
-        -a | --auth )           shift
-                                pat=$1
+        create )                shift
+                                reponame=$1
                                 ;;
-        -p | --private )        shift
-                                private=true
-                                continue
+        -u | --username )       shift
+                                username=$1
+                                ;;
+        --desc )                shift
+                                description=\"$1\"
+                                ;;
+        -t | --token )          shift
+                                pat=$1
                                 ;;
         --no-folder )           shift
                                 folder=false
@@ -130,10 +130,13 @@ done
 # Checks if variables have been assigned a value
 while [ -z $username ] || [ "$username" = "" ] || [[ $username = *[![:ascii:]]* ]]; do
         read -p "[Username]: " username
-    doneß
+    done
 
 while [ -z $pat] || [ "$pat" = "" ] || [[ $pat = *[![:ascii:]]* ]]; do
-        read -p "[Personal Access Token]: " pat
+        # you can still pass a password into pat but will get an email warning you of deprication
+        echo "Try using a conf file for your loooong PAT!"
+        echo -r [Personal Access Token]:
+        read -s pat
     done
 
 while [ -z $reponame ] || [ "$reponame" = "" ] || [[ $reponame = *[![:ascii:]]* ]]; do

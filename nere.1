@@ -8,17 +8,18 @@ nere \- create, update and delete repositories
 .SH SYNOPSIS
 .B nere 
 [\fBhelp\fR]
-[\fB\-u\fR \fIUSERNAME\fR]
-[\fB\-c\fR \fIREPONAME\fR]
+[\fBprivate\fR]
+[\fBdelete\fR \fIREPONAME\fR]
+[\fBcreate\fR \fIREPONAME\fR]
 [\fB\-\-desc\fR \TEXT\fR]
-[\fB\-p\fR]
-[\fB\-a\fR \fITOKEN\fR]
+[\fB\-t\fR \fITOKEN\fR]
+[\fB\-u\fR \fIUSERNAME\fR]
 .SH DESCRIPTION
 nere allows users to create, delete and update repositories straight from the terminal
 .SH OPTIONS
 A list of options as follows:
 .TP
-.BR \-h ", " \-\-help\fR
+.BR help\fR
 Displays the options for nere
 
 .TP
@@ -26,27 +27,27 @@ Displays the options for nere
 passes a temporary username to the command
 
 .TP
-.BR \-c ", " \-\-create =\fIREPONAME\fR
-passes the name of the reposiotry
+.BR create =\fIREPONAME\fR
+pass the name of the repo to the command
 
 .TP
 .BR \-\-desc=\fITEXT\fR
 provide a decription to the repository
 
 .TP
-.BR \-d ", " \-\-delete=\fIUSERNAME\fR
-passes a temporary username to the command
+.BR \-d ", " \-\-delete=\fIREPONAME\fR
+delete repository from said user
 
 .TP
-.BR \-a ", " \-\-auth=\fITOKEN\fR
-passes token or password for anything requiring authorization
+.BR \-t ", " \-\-token=\fITOKEN\fR
+passes token for anything requiring authorization
 
 .TP
 .BR \-u ", " \-\-username=\fIUSERNAME\fR
 passes a temporary username to the command
 
 .TP
-.BR \-p ", " \-\-private\fR
+.BR private\fR
 Flag signifies the repository is private
 .SH BUGS
 No known bugs.
