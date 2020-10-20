@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#!/bin/bash
 description=null    # Optional Description flag 
 private=false       # Private defaulted to false
 delete=false        # Delete defaulted to false 
