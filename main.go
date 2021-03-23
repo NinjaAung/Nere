@@ -1,6 +1,6 @@
 package main
 
-import "nere/cmd"
+import "github.com/NinjaAung/nere/cmd"
 
 func main() {
 	cmd.Execute()

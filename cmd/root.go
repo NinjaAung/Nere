@@ -1,15 +1,11 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 	"os"
+
 	"github.com/spf13/cobra"
-
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
-
-var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -17,8 +13,8 @@ var rootCmd = &cobra.Command{
 	Short: "Create, Delete, Update repos",
 	Long: `Nere give users the ability to create, delete and update repos that they
 	repo can be found at github.com/ninjaaung/nere`,
-	Run: func(cmd *cobra.Command, args []string) { 
-		if err := err.Usage(); err != nil {
+	Run: func(cmd *cobra.Command, args []string) {
+		if err := cmd.Usage(); err != nil {
 			log.Fatal(err)
 		}
 	},
@@ -30,4 +26,3 @@ func Execute() {
 		os.Exit(1)
 	}
 }
-
