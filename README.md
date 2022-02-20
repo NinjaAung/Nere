@@ -9,9 +9,6 @@
   <a href="https://github.com/NinjaAung/nere/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/NinjaAung/nere" />
   </a>
-  <a href="https://twitter.com/Ninjer27" target="_blank">
-    <img alt="Twitter: Ninjer27" src="https://img.shields.io/twitter/follow/Ninjer27.svg?style=social" />
-  </a>
 </p>
 
 > Command line tool use to update, create and delete repositories
